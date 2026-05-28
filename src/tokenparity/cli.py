@@ -54,7 +54,7 @@ def _make_synthetic_samples(domain: str, n: int = 5, seed: int = 0) -> list[Any]
 
 def _load_mock_adapters(domains: list[str]) -> list[Any]:
     """Load mock adapters for the requested domains."""
-    adapters = []
+    adapters: list[Any] = []
     for domain in domains:
         if domain == "protein":
             from tokenparity.adapters.protein_mock import MockFoldTokenAdapter
@@ -154,7 +154,7 @@ def cmd_grid(args: argparse.Namespace) -> int:
         domain: _make_synthetic_samples(domain, n=args.n_samples, seed=42) for domain in domains
     }
 
-    grid_result = engine.eval_grid(samples_per_domain)  # type: ignore[arg-type]
+    grid_result = engine.eval_grid(samples_per_domain)
 
     # Build serialisable output
     output: dict[str, Any] = {

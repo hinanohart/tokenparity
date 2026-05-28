@@ -73,8 +73,8 @@ def test_normalize_within_domain_invariant_under_scale(
     assume(float(np.std(base_errors)) > 1e-10)
 
     tokenizer_names = [f"tok_{i}" for i in range(len(base_errors))]
-    errors_original = dict(zip(tokenizer_names, base_errors.tolist()))
-    errors_scaled = dict(zip(tokenizer_names, (base_errors * scale).tolist()))
+    errors_original = dict(zip(tokenizer_names, base_errors.tolist(), strict=True))
+    errors_scaled = dict(zip(tokenizer_names, (base_errors * scale).tolist(), strict=True))
 
     normed_original = normalize_within_domain(errors_original)
     normed_scaled = normalize_within_domain(errors_scaled)

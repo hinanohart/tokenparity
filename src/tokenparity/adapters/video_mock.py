@@ -50,7 +50,7 @@ def _extract_patches(frame: np.ndarray, patch_size: int = _PATCH_SIZE) -> np.nda
     patches = frame[: pH * patch_size, : pW * patch_size, :]
     patches = patches.reshape(pH, patch_size, pW, patch_size, C)
     patches = patches.transpose(0, 2, 1, 3, 4).reshape(-1, patch_size * patch_size * C)
-    return patches.astype(np.float32)
+    return patches.astype(np.float32)  # type: ignore[no-any-return]
 
 
 def _quantise_patches(patches: np.ndarray, codebook: np.ndarray) -> np.ndarray:
@@ -82,7 +82,7 @@ def _quantise_patches(patches: np.ndarray, codebook: np.ndarray) -> np.ndarray:
 
     # Nearest neighbour via dot product (since both are unit vectors)
     similarities = p_normed @ codebook.T  # (n_patches, vocab_size)
-    return np.argmax(similarities, axis=1).astype(np.int64)
+    return np.argmax(similarities, axis=1).astype(np.int64)  # type: ignore[no-any-return]
 
 
 class MockVideoGridAdapter:
@@ -158,7 +158,7 @@ class MockVideoGridAdapter:
         """Return mean-pooled patch features, shape ``(1, dim)``."""
         if tokens.latents is not None:
             return tokens.latents.reshape(1, -1)
-        return _CODEBOOK[tokens.ids].mean(axis=0, keepdims=True)
+        return _CODEBOOK[tokens.ids].mean(axis=0, keepdims=True)  # type: ignore[no-any-return]
 
     def native_score(self, sample: Sample) -> float:
         """Score based on temporal variance of spatial mean.

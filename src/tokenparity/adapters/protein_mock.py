@@ -75,7 +75,7 @@ def _coords_to_token_ids(coords: np.ndarray) -> np.ndarray:
     # Bin to integer codes
     ids = np.digitize(normalised, _BIN_EDGES[1:-1]).astype(np.int64)
     ids = np.clip(ids, 0, VOCAB_SIZE - 1)
-    return ids
+    return ids  # type: ignore[no-any-return]
 
 
 class MockFoldTokenAdapter:

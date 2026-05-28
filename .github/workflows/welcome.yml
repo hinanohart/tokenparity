@@ -1,0 +1,34 @@
+name: Welcome first-time contributors
+
+on:
+  issues:
+    types: [opened]
+  pull_request_target:
+    types: [opened]
+
+permissions:
+  issues: write
+  pull-requests: write
+
+jobs:
+  welcome:
+    runs-on: ubuntu-latest
+    # Actor guard: skip bots to prevent workflow failures on Dependabot PRs
+    # and github-actions[bot] automated issues.
+    if: |
+      github.actor != 'dependabot[bot]' &&
+      github.actor != 'github-actions[bot]' &&
+      !contains(github.actor, '[bot]')
+    steps:
+      - uses: actions/first-interaction@v1
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+          issue-message: |
+            Thanks for opening your first issue on tokenparity!
+            Please check [LIMITATIONS.md](docs/LIMITATIONS.md) and
+            [DUPLICATION_DECLARATIONS.md](docs/DUPLICATION_DECLARATIONS.md)
+            before filing a "this already exists" issue.
+          pr-message: |
+            Thanks for your first pull request to tokenparity!
+            Please make sure `pytest tests/ --cov=tokenparity --cov-fail-under=85`
+            passes locally before requesting review.

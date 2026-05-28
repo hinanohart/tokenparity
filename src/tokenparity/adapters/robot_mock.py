@@ -135,7 +135,6 @@ class MockLeRobotActionAdapter:
         Full D-dimensional reconstruction requires knowing D, which is not
         stored in Tokens; we use D=1 as a conservative default for mock purposes.
         """
-        T = tokens.ids.shape[0]
         # Reconstruct with D=1 (conservative; sufficient for round-trip shape test)
         recon = np.array([_decode_timestep(int(tok_id), D=1)[0] for tok_id in tokens.ids])
         return Sample(domain="robot", payload=recon)

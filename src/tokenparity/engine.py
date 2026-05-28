@@ -277,7 +277,7 @@ class Engine:
                     continue
                 for ai, axis in enumerate(axes):
                     try:
-                        cell = self.eval_cell(domain, tok_name, axis, samples)  # type: ignore[arg-type]
+                        cell = self.eval_cell(domain, tok_name, axis, samples)
                         raw_cells[(domain, tok_name, axis)] = cell
 
                         if axis == "A":
@@ -300,7 +300,7 @@ class Engine:
                         )
 
         return GridResult(
-            domains=domains,
+            domains=list(domains),
             tokenizers=tokenizers,
             axes=list(axes),
             values=values,
@@ -386,4 +386,4 @@ class Engine:
                     dominated[i] = True
                     break
 
-        return [tok for tok, dom in zip(tokenizers, dominated) if not dom]
+        return [tok for tok, dom in zip(tokenizers, dominated, strict=True) if not dom]

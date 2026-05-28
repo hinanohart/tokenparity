@@ -10,8 +10,8 @@
     "pid": null,
     "released": false
   },
-  "phase": "S0",
-  "completed_steps": [],
+  "phase": "S7-complete",
+  "completed_steps": ["S0", "S0_5", "S1", "S2", "S3", "S4", "S5", "S6", "S7"],
   "checklist": {
     "S0": {
       "gh_repo_list_done": true,
@@ -36,7 +36,7 @@
     "S4": {"ci_6_matrix_green": false, "torch_isolation": false, "gpl_grep_rc1": false},
     "S5": {"tests_count": 0, "coverage_pct": 0, "vacuous_test_count": 0},
     "S6": {"readme_json_sha256_match": true, "overclaim_grep_rc1": true, "6_dup_declarations_present": true},
-    "S7": {"tagged": false, "changelog": false, "dependabot_yml": false},
+    "S7": {"tagged": false, "changelog": true, "dependabot_yml": true, "citation_cff": true, "welcome_actor_guard": true},
     "S8": {"agent_A": null, "agent_B": null, "agent_C": null, "rounds": 0},
     "S9": {"released": false, "topics_set": false, "delete_branch_on_merge": false},
     "S10": {"audit_verdict": null, "clean_clone_repro": false},
