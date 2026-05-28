@@ -13,7 +13,7 @@ jobs:
   grep:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: Banned overclaim words must not appear in README
         shell: bash
         run: |
