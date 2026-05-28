@@ -35,9 +35,9 @@ def verify_s5() -> bool:
             "pytest",
             str(ROOT / "tests"),
             "--no-header",
-            "-q",
             "--tb=no",
             "--no-cov",
+            "-v",  # verbose: ensures "X passed" appears in output
         ],
         capture_output=True,
         text=True,
@@ -46,11 +46,16 @@ def verify_s5() -> bool:
     output = result.stdout + result.stderr
     print(output)
 
-    # Parse "X passed" from pytest output
+    # Parse "X passed" from pytest verbose output
     match = re.search(r"(\d+) passed", output)
     if not match:
-        print("FAIL [S5]: Could not parse pytest output for passed count.")
-        return False
+        # Fallback: count "PASSED" lines
+        passed = output.count(" PASSED")
+        if passed == 0:
+            print("FAIL [S5]: Could not parse pytest output for passed count.")
+            return False
+    else:
+        passed = int(match.group(1))
 
     passed = int(match.group(1))
     if passed < 60:

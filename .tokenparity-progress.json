@@ -35,7 +35,7 @@
     "S3": {"adapter_trinity_green": false},
     "S4": {"ci_6_matrix_green": false, "torch_isolation": false, "gpl_grep_rc1": false},
     "S5": {"tests_count": 0, "coverage_pct": 0, "vacuous_test_count": 0},
-    "S6": {"readme_json_sha256_match": false, "overclaim_grep_rc1": false, "6_dup_declarations_present": false},
+    "S6": {"readme_json_sha256_match": true, "overclaim_grep_rc1": true, "6_dup_declarations_present": true},
     "S7": {"tagged": false, "changelog": false, "dependabot_yml": false},
     "S8": {"agent_A": null, "agent_B": null, "agent_C": null, "rounds": 0},
     "S9": {"released": false, "topics_set": false, "delete_branch_on_merge": false},
@@ -53,7 +53,7 @@
     "version_tag": "v0.1.0a1",
     "topics": ["tokenizer", "evaluation", "benchmark", "cpu-only", "multimodal"],
     "dreamcheck_decision": "separate_repo_future",
-    "claim_line_sha256": null
+    "claim_line_sha256": "0cd8eae081eccabcb3920400ddad8485563f7f5fb60f327e86c0cf91f867e7fd"
   },
   "open_questions": {
     "OQ1_infotok_competitor": "REAL_oral_ICLR2026_arxiv_2512.16975 → pivot F4 declaration required (IB axis = cross-domain 3-modality grid, not video tokenizer design)",

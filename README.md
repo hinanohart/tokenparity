@@ -52,11 +52,20 @@ This repo intentionally does **not** overlap with the following sibling work. Se
 
 ```bash
 pip install tokenparity
-tokenparity eval --domain protein --tokenizer mock --axis all
-tokenparity eval --grid synthetic --output bench_results/synthetic_v0.1.0a1.json
+tokenparity version
+tokenparity eval --domain protein --tokenizer mock --axis A
+tokenparity grid --synthetic --output bench_results/synthetic_v0.1.0a1.json
 ```
 
 The CLI refuses to compute "real" scores unless you set `KINETOKEN_REAL_DATA=1` and provide cached tokens that pass the license gate (`hinanohart/weightlock`).
+
+## Reproducible bench results
+
+`bench_results/synthetic_v0.1.0a1.json` is generated deterministically (seed=42, n=10 samples per domain).
+
+SHA-256: `0cd8eae081eccabcb3920400ddad8485563f7f5fb60f327e86c0cf91f867e7fd`
+
+To regenerate and verify: `tokenparity grid --synthetic --output bench_results/synthetic_v0.1.0a1.json`
 
 ## Why "tokenparity"
 
