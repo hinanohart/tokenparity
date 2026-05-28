@@ -27,7 +27,7 @@ Calling tokenparity a "complete multimodal tokenizer harness" is overclaim. We c
 
 ## Prior-art positioning (load-bearing)
 
-See [`DUPLICATION_DECLARATIONS.md`](DUPLICATION_DECLARATIONS.md) for the literal 11-entry table.
+See [`DUPLICATION_DECLARATIONS.md`](DUPLICATION_DECLARATIONS.md) for the literal 13-entry table.
 
 In particular:
 
