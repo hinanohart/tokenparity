@@ -8,12 +8,12 @@
   "a2_hotfix_started_at": "2026-05-29T04:10:00Z",
   "lock": {
     "session_id": "main-thread-post-compact-2026-05-29",
-    "heartbeat_at": "2026-05-29T04:30:00Z",
+    "heartbeat_at": "2026-05-29T06:55:00Z",
     "pid": null,
     "released": true
   },
-  "phase": "S12-a2-hotfix-prep",
-  "completed_steps": ["S0", "S0_5", "S1", "S2", "S3", "S4", "S5", "S6", "S7", "S8", "S9", "S10", "S11", "S12_audit"],
+  "phase": "S12-a2-hotfix-complete",
+  "completed_steps": ["S0", "S0_5", "S1", "S2", "S3", "S4", "S5", "S6", "S7", "S8", "S9", "S10", "S11", "S12_audit", "S12_hotfix", "S12_release", "S12_reaudit"],
   "checklist": {
     "S0": {
       "gh_repo_list_done": true,
@@ -147,7 +147,25 @@
   ],
   "wip_quarantine": [],
   "human_pause": {"paused": false, "reason": null, "since": null},
-  "status": "a2-hotfix-prep",
+  "status": "a2-released-and-reaudited",
+  "a2_release": {
+    "url": "https://github.com/hinanohart/tokenparity/releases/tag/v0.1.0a2",
+    "tag_name": "v0.1.0a2",
+    "tag_sha": "4d0b7630084c67aa6dd1b6a5a6e79eda321740c8",
+    "tag_commit_sha": "b97297438049ff56917628baa3f370f1608b228c",
+    "is_prerelease": true,
+    "asset_attached": "synthetic_v0.1.0a1.json (sha256=71434df...ed51, 5335 bytes)",
+    "published_at": "2026-05-28T21:51:18Z"
+  },
+  "s12_reaudit": {
+    "audit_P_clean_clone": "ACCEPT (15/15 PASS, sha256 EXACT MATCH 71434df...ed51, M1/M2 解消実機 verify, CI 11/11 緑)",
+    "audit_Q_regression": "ACCEPT (A-K 全 PASS, regression=0, NIT: progress.json bookkeeping drift)",
+    "audit_R_code_sophistication": "ACCEPT-WITH-NITS (BLOCKER/MAJOR=0, MINOR=4, NIT=4, 洗練度: 妥当 pre-alpha+)",
+    "blockers": 0,
+    "majors": 0,
+    "minors": 4,
+    "yank_recommended": false
+  },
   "monitor_agents": {
     "monitor_1_blueprint_fidelity": "completed (1 round, early-terminate due to agent runtime sleep limitation)",
     "monitor_2_actual_progress": "completed (6 rounds + final report, REJECT due to bookkeeping drift — superseded by S8/S10 6-critic ACCEPT)",
@@ -180,7 +198,12 @@
     "Live model inference behind KINETOKEN_REAL_DATA=1 + allow_real=True gate",
     "weightlock pre-commit hook wire (currently doc reference only)",
     "SHA-pinned actions (currently tag-pinned actions/checkout@v4, setup-python@v5)",
-    "Release asset attach: bench_results JSON, source tarball"
+    "Bench filename version-template: synthetic_{__version__}.json (a3 R MINOR)",
+    "verify_step.py:S6 path no longer hardcoded to a1 (a3 R MINOR)",
+    "cli.py NaN detection: math.isnan over obj!=obj (a3 R MINOR readability)",
+    "dependabot security-updates: enabled even when open-pull-requests-limit=0 (a3 R NIT)",
+    "test_readme_grep_fires phrase list auto-derive from EXPECTED_BANNED split (a3 R NIT)",
+    "honest_gate.py warning message style: f-string/triple-quote (a3 R NIT readability)"
   ],
   "v0_2_backlog": [
     "Compression axis (bits-per-dimension) as Axis D",
