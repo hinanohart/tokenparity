@@ -4,43 +4,75 @@
   "repo_slug": "hinanohart/tokenparity",
   "trigger_phrase_match": "OSS開始 (compact 後再発話)",
   "started_at": "2026-05-29T02:43:00Z",
+  "completed_at": "2026-05-29T03:50:00Z",
   "lock": {
     "session_id": "main-thread-post-compact-2026-05-29",
-    "heartbeat_at": "2026-05-29T02:43:00Z",
+    "heartbeat_at": "2026-05-29T03:50:00Z",
     "pid": null,
-    "released": false
+    "released": true
   },
-  "phase": "S7-complete",
-  "completed_steps": ["S0", "S0_5", "S1", "S2", "S3", "S4", "S5", "S6", "S7"],
+  "phase": "S11-complete",
+  "completed_steps": ["S0", "S0_5", "S1", "S2", "S3", "S4", "S5", "S6", "S7", "S8", "S9", "S10", "S11"],
   "checklist": {
     "S0": {
       "gh_repo_list_done": true,
       "websearch_infotok_done": true,
       "websearch_rosetta_done": true,
-      "duplication_declaration_md": null,
+      "duplication_declaration_md": "docs/DUPLICATION_DECLARATIONS.md",
       "duplication_score_per_repo": {
         "tracecal": 0.40,
         "mlipgauge": 0.30,
         "transduce": 0.80,
         "gavagai": 0.70,
         "oraclematch": 0.70,
-        "speclattice": 0.30
+        "speclattice": 0.30,
+        "polyphonic-eval": 0.35,
+        "saelet": 0.375
       },
       "infotok_real": true,
-      "infotok_pivot_F4_declaration_pending": true
+      "infotok_pivot_F4_declaration_applied": true
     },
-    "S0_5": {"repo_created": false, "branch_protected": false, "name_check_3pt": false},
-    "S1": {"kraskov_self_impl": false, "axes_analytic_tests": false},
-    "S2": {"honest_gate_test": false, "scalar_fusion_lint": false},
-    "S3": {"adapter_trinity_green": false},
-    "S4": {"ci_6_matrix_green": false, "torch_isolation": false, "gpl_grep_rc1": false},
-    "S5": {"tests_count": 0, "coverage_pct": 0, "vacuous_test_count": 0},
-    "S6": {"readme_json_sha256_match": true, "overclaim_grep_rc1": true, "6_dup_declarations_present": true},
+    "S0_5": {"repo_created": true, "branch_protected": true, "name_check_3pt": true},
+    "S1": {"kraskov_self_impl": true, "axes_analytic_tests": true},
+    "S2": {"honest_gate_test": true, "scalar_fusion_lint": true},
+    "S3": {"adapter_trinity_green": true},
+    "S4": {"ci_6_matrix_green": true, "torch_isolation": true, "gpl_grep_rc1": true},
+    "S5": {"tests_count": 138, "coverage_pct": 91, "vacuous_test_count": 0},
+    "S6": {"readme_json_sha256_match": true, "overclaim_grep_rc1": true, "8_dup_declarations_present": true, "_dup_count_total": 13},
     "S7": {"tagged": false, "changelog": true, "dependabot_yml": true, "citation_cff": true, "welcome_actor_guard": true},
-    "S8": {"agent_A": null, "agent_B": null, "agent_C": null, "rounds": 0},
-    "S9": {"released": false, "topics_set": false, "delete_branch_on_merge": false},
-    "S10": {"audit_verdict": null, "clean_clone_repro": false},
-    "S11": {"v02_spec_md": false, "state_md_written": false}
+    "S8": {
+      "agent_A": "ACCEPT-WITH-NITS",
+      "agent_B": "ACCEPT-WITH-NITS",
+      "agent_C": "ACCEPT-WITH-NITS",
+      "rounds": 1,
+      "blockers": 0,
+      "nits_resolved_pre_release": ["LIMITATIONS_11_to_13", "branch_protection_9_contexts"],
+      "nits_deferred_to_v0.1.0a2_or_v0.1.1": ["readme_grep_negative_fixture", "bench_nan_strict_json", "verify_step_60_dead_code", "weightlock_precommit_wire", "banned_list_2phrase_diff"]
+    },
+    "S9": {
+      "released": true,
+      "release_url": "https://github.com/hinanohart/keep-empty",
+      "tag_name": "v0.1.0a1",
+      "tag_sha": "10cb7f30aa8307fa7bfb59d7ca0258d0f15194ed",
+      "tag_commit_sha": "701dce0956a54081d3dc70060a57ade8ae0a09e4",
+      "is_prerelease": true,
+      "topics_set": ["tokenizer", "evaluation", "benchmark", "cpu-only", "multimodal"],
+      "delete_branch_on_merge": true,
+      "branch_protection_contexts_count": 9
+    },
+    "S10": {
+      "audit_X_clean_clone_repro": "ACCEPT (sha256 EXACT MATCH 0cd8eae0...e7fd, 138 tests pass, CLI version OK)",
+      "audit_Y_wsl_coherence": "ACCEPT-WITH-NITS (15/15 file diff = 0, tag SHA local==remote, CI tag-state green)",
+      "audit_Z_critical_hunt": "ACCEPT-WITH-NITS (13 hard-checks all OK, secret leak 0, network call 0, GPL/NC 0, yank=NO)",
+      "audit_verdict": "ACCEPT-WITH-NITS",
+      "clean_clone_repro": true,
+      "yank_recommended": false
+    },
+    "S11": {
+      "v02_spec_md": true,
+      "state_md_written": true,
+      "memory_anchor_written": true
+    }
   },
   "decisions": {
     "name": "tokenparity",
@@ -56,25 +88,61 @@
     "claim_line_sha256": "0cd8eae081eccabcb3920400ddad8485563f7f5fb60f327e86c0cf91f867e7fd"
   },
   "open_questions": {
-    "OQ1_infotok_competitor": "REAL_oral_ICLR2026_arxiv_2512.16975 → pivot F4 declaration required (IB axis = cross-domain 3-modality grid, not video tokenizer design)",
-    "OQ2_real_adapter_v0.1.1": "deferred",
+    "OQ1_infotok_competitor": "RESOLVED: REAL_oral_ICLR2026_arxiv_2512.16975, pivot F4 declaration applied to README + LIMITATIONS",
+    "OQ2_real_adapter_v0.1.1": "deferred to v0.1.1",
     "OQ3_dreamcheck_separation": "confirmed_separate_repo",
     "OQ4_compression_axis_v0.2": "deferred",
     "OQ5_equivariance_axis_v0.2": "deferred",
-    "OQ6_speclattice_dupe": "30% cross-vocabulary motif overlap, scope distinct (LLM SD vs cross-modality), LIMITATIONS note only"
+    "OQ6_speclattice_dupe": "30% LIMITATIONS note only, declared in DUPLICATION_DECLARATIONS §6",
+    "OQ7_polyphonic_eval_dupe": "35% declared §7",
+    "OQ8_saelet_dupe": "37.5% declared §8"
   },
   "circuit_breaker": {
     "max_attempts_per_step": 5,
     "critic_max_rounds": 3,
     "max_total_hours": 168
   },
-  "pivot_history": [],
+  "pivot_history": [
+    {
+      "phase": "S0",
+      "trigger": "InfoTok ICLR 2026 Oral confirmed REAL (arxiv 2512.16975)",
+      "pivot": "F4: IB axis declaration as 'cross-modality 3-grid IB measurement, not single-modality tokenizer design'"
+    },
+    {
+      "phase": "S6+",
+      "trigger": "Monitor B org-blind sweep found 2 more dupes (polyphonic-eval 35%, saelet 37.5%) not caught by 3-architect + 2-critic rounds",
+      "pivot": "append literal differentiation to README + DUPLICATION_DECLARATIONS in commit 816c586"
+    }
+  ],
   "wip_quarantine": [],
   "human_pause": {"paused": false, "reason": null, "since": null},
-  "status": "in-progress",
+  "status": "done",
   "monitor_agents": {
-    "monitor_1_blueprint_fidelity": "pending_launch",
-    "monitor_2_actual_progress": "pending_launch",
-    "super_monitor_main_thread": "active"
-  }
+    "monitor_1_blueprint_fidelity": "completed (1 round, early-terminate due to agent runtime sleep limitation)",
+    "monitor_2_actual_progress": "completed (6 rounds + final report, REJECT due to bookkeeping drift — superseded by S8/S10 6-critic ACCEPT)",
+    "super_monitor": "completed (1 round, early-terminate)",
+    "s8_critic_A_architect": "ACCEPT-WITH-NITS",
+    "s8_critic_B_overclaim": "ACCEPT-WITH-NITS",
+    "s8_critic_C_github_state": "ACCEPT-WITH-NITS",
+    "s10_audit_X_clean_clone": "ACCEPT",
+    "s10_audit_Y_wsl_coherence": "ACCEPT-WITH-NITS",
+    "s10_audit_Z_critical_hunt": "ACCEPT-WITH-NITS"
+  },
+  "v0_1_0a2_backlog": [
+    "scripts/verify_step.py:60 dead-code path (UnboundLocal on match=None)",
+    "bench_results JSON bare NaN → use 'NaN' string in strict JSON",
+    "readme_grep.yml banned list: add 永久|完璧 (2 phrase) to match spec",
+    "tests/test_readme_grep_fires.py: negative fixture for grep dead-code regression detection",
+    "weightlock pre-commit hook wire (currently doc reference only)",
+    "default banned list and CI banned list synchronized"
+  ],
+  "v0_2_backlog": [
+    "Real adapter implementations (FoldToken / Cosmos / LeRobot live inference)",
+    "Compression axis (bits-per-dimension) as Axis D",
+    "Equivariance residual axis as Axis E",
+    "Text + audio extras",
+    "dreamcheck separate repo (world-model hallucination gate via dual-tokenizer disagreement)",
+    "PyPI Trusted Publishers integration",
+    "Live model inference behind KINETOKEN_REAL_DATA=1 + allow_real=True gate"
+  ]
 }
