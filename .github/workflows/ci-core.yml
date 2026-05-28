@@ -34,3 +34,5 @@ jobs:
           python -c "import sys; import tokenparity; assert 'torch' not in sys.modules, 'torch leaked into core import path'"
       - name: Run unit tests
         run: pytest -q --cov=tokenparity --cov-report=term-missing --cov-fail-under=85
+      - name: Verify S5 (≥60 tests passed)
+        run: python scripts/verify_step.py S5
