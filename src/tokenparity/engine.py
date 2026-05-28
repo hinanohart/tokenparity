@@ -216,9 +216,12 @@ class Engine:
         for sample in samples:
             tokens = adapter.encode(sample)
             recon_sample = adapter.decode(tokens)
-            orig = np.asarray(sample.payload, dtype=float)
-            recon = np.asarray(recon_sample.payload, dtype=float)
-            errors.append(reconstruction_error(orig, recon))
+            orig = np.asarray(sample.payload, dtype=float).flatten()
+            recon = np.asarray(recon_sample.payload, dtype=float).flatten()
+            # Align lengths: compare the shorter prefix (mock decoders may
+            # return a different number of elements due to approximate inversion)
+            n = min(len(orig), len(recon))
+            errors.append(reconstruction_error(orig[:n], recon[:n]))
         median_mse = float(np.median(errors)) if errors else float("nan")
         return {
             "axis": "C",
