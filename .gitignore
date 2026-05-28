@@ -22,3 +22,4 @@ node_modules/
 # WIP / experimentation (R8: rm forbidden, move to experiments/_wip/<name>/)
 experiments/_wip/
 *.wip
+.builder-heartbeat
