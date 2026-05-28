@@ -72,15 +72,21 @@ def _load_mock_adapters(domains: list[str]) -> list[Any]:
 
 
 def _numpy_to_serialisable(obj: Any) -> Any:
-    """Recursively convert numpy scalars/arrays to Python native types."""
+    """Recursively convert numpy scalars/arrays to strict-JSON Python natives.
+
+    NaN / +Inf / -Inf become string literals (``"nan"`` / ``"inf"`` / ``"-inf"``)
+    so the emitted JSON is RFC 8259 strict (no bare ``NaN`` tokens).  ``tolist()``
+    on a numpy array is recursed back through this function so element-level
+    NaN floats are caught — a1 forgot that step and shipped non-strict JSON.
+    """
     if isinstance(obj, dict):
         return {k: _numpy_to_serialisable(v) for k, v in obj.items()}
     if isinstance(obj, list):
         return [_numpy_to_serialisable(v) for v in obj]
     if isinstance(obj, np.ndarray):
-        return obj.tolist()
+        return _numpy_to_serialisable(obj.tolist())
     if isinstance(obj, (np.floating, np.integer)):
-        return obj.item()
+        obj = obj.item()
     if isinstance(obj, float) and (obj != obj or obj == float("inf") or obj == float("-inf")):
         return str(obj)
     return obj
@@ -175,7 +181,10 @@ def cmd_grid(args: argparse.Namespace) -> int:
     output_path = Path(args.output)
     output_path.parent.mkdir(parents=True, exist_ok=True)
     with output_path.open("w") as f:
-        json.dump(output, f, indent=2)
+        # allow_nan=False: any bare NaN/Inf reaching this point is a bug in
+        # _numpy_to_serialisable.  Strict-JSON belt-and-braces with the
+        # NaN->str conversion above.
+        json.dump(output, f, indent=2, allow_nan=False)
     print(f"Grid results written to {output_path}")
     return 0
 

@@ -283,7 +283,8 @@ class Engine:
                         if axis == "A":
                             values[di, ti, ai] = cell.get("median", float("nan"))
                         elif axis == "B":
-                            values[di, ti, ai] = cell.get("ib_median") or float("nan")
+                            ib_val = cell.get("ib_median")
+                            values[di, ti, ai] = float("nan") if ib_val is None else ib_val
                             if cell.get("ci_low") is not None:
                                 ci_bands[(domain, tok_name, axis)] = (
                                     cell["ci_low"],

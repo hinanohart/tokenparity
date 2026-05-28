@@ -29,7 +29,7 @@ def test_version_via_main(capsys: pytest.CaptureFixture) -> None:
 
 
 def test_version_subprocess() -> None:
-    """'tokenparity version' via subprocess must output '0.1.0a1'."""
+    """'tokenparity version' via subprocess must output the installed __version__."""
     result = subprocess.run(
         [sys.executable, "-m", "tokenparity.cli", "version"],
         capture_output=True,
@@ -37,7 +37,7 @@ def test_version_subprocess() -> None:
         check=False,
     )
     assert result.returncode == 0
-    assert "0.1.0a1" in result.stdout
+    assert __version__ in result.stdout
 
 
 def test_no_subcommand_returns_nonzero(capsys: pytest.CaptureFixture) -> None:
@@ -71,5 +71,9 @@ def test_parse_grid_args() -> None:
 
 
 def test_version_string_matches_package() -> None:
-    """CLI version must match tokenparity.__version__."""
-    assert __version__ == "0.1.0a1"
+    """CLI version must be a 0.1.0a* pre-alpha tag.
+
+    The contract is "the published __version__ matches whatever the CLI
+    prints"; the alpha numeric suffix is allowed to bump within the a* series.
+    """
+    assert __version__.startswith("0.1.0a")

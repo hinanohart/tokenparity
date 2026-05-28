@@ -6,6 +6,7 @@ import pytest
 
 from tokenparity.safety.honest_gate import (
     HonestGateError,
+    HonestGateMisconfigWarning,
     assert_synthetic_only,
     is_synthetic_mode,
 )
@@ -46,12 +47,43 @@ def test_is_synthetic_mode_false_when_env_set(monkeypatch: pytest.MonkeyPatch) -
     assert is_synthetic_mode() is False
 
 
-def test_allow_real_without_env_is_noop(monkeypatch: pytest.MonkeyPatch) -> None:
-    """Passing allow_real=True when env is unset is a silent no-op."""
+def test_allow_real_without_env_warns(monkeypatch: pytest.MonkeyPatch) -> None:
+    """Passing allow_real=True without env=1 must surface a misconfig warning.
+
+    a2 hardening: previous a1 silently no-op'd this misconfiguration; the
+    two-factor gate stays closed (synthetic-only is safe), but the caller is
+    now warned so the mistake doesn't hide.
+    """
     monkeypatch.delenv("KINETOKEN_REAL_DATA", raising=False)
-    assert_synthetic_only(allow_real=True)  # must not raise
+    with pytest.warns(HonestGateMisconfigWarning, match="KINETOKEN_REAL_DATA=1 is not set"):
+        assert_synthetic_only(allow_real=True)
+
+
+def test_no_warning_when_both_factors_set(monkeypatch: pytest.MonkeyPatch) -> None:
+    """When both env=1 and allow_real=True are set, no warning fires."""
+    import warnings as _w
+
+    monkeypatch.setenv("KINETOKEN_REAL_DATA", "1")
+    with _w.catch_warnings():
+        _w.simplefilter("error", HonestGateMisconfigWarning)
+        assert_synthetic_only(allow_real=True)  # must not warn or raise
+
+
+def test_no_warning_when_neither_factor_set(monkeypatch: pytest.MonkeyPatch) -> None:
+    """Default synthetic mode (env unset, allow_real=False) must not warn."""
+    import warnings as _w
+
+    monkeypatch.delenv("KINETOKEN_REAL_DATA", raising=False)
+    with _w.catch_warnings():
+        _w.simplefilter("error", HonestGateMisconfigWarning)
+        assert_synthetic_only(allow_real=False)  # must not warn or raise
 
 
 def test_honest_gate_error_is_runtime_error() -> None:
     """HonestGateError must be a RuntimeError subclass."""
     assert issubclass(HonestGateError, RuntimeError)
+
+
+def test_misconfig_warning_is_user_warning() -> None:
+    """HonestGateMisconfigWarning must be a UserWarning subclass."""
+    assert issubclass(HonestGateMisconfigWarning, UserWarning)

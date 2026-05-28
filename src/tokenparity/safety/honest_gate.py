@@ -18,6 +18,15 @@ Usage::
 from __future__ import annotations
 
 import os
+import warnings
+
+
+class HonestGateMisconfigWarning(UserWarning):
+    """Warn the caller that ``allow_real=True`` was set without ``KINETOKEN_REAL_DATA=1``.
+
+    The two-factor gate stays closed, but the caller almost certainly intended
+    to open it.  Silently swallowing this mismatch hides the misconfiguration.
+    """
 
 
 class HonestGateError(RuntimeError):
@@ -61,12 +70,19 @@ def assert_synthetic_only(*, allow_real: bool = False) -> None:
         If ``KINETOKEN_REAL_DATA=1`` is set **and** ``allow_real=False``.
         This is the hard-stop path for accidental real-data evaluation.
 
+    Warns
+    -----
+    HonestGateMisconfigWarning
+        If ``allow_real=True`` is passed but ``KINETOKEN_REAL_DATA=1`` is not set.
+        The gate stays closed (synthetic-only is the safe default), but the
+        mismatch almost certainly means the caller misconfigured the run.
+        Surfacing this avoids the silent no-op the previous version returned.
+
     Notes
     -----
-    Passing ``allow_real=True`` without ``KINETOKEN_REAL_DATA=1`` is a no-op
-    (the env var is the signal from the user that real data is available).
     The two-factor requirement prevents a code change alone from bypassing
-    the gate.
+    the gate.  Both the environment variable AND the keyword argument must be
+    set in the same run for real-data evaluation to proceed.
     """
     real_data_env = os.environ.get("KINETOKEN_REAL_DATA", "0") == "1"
 
@@ -77,4 +93,13 @@ def assert_synthetic_only(*, allow_real: bool = False) -> None:
             "after ensuring cached tokens have passed the license gate "
             "(hinanohart/weightlock). "
             "This is a safety stop, not a warning."
+        )
+
+    if allow_real and not real_data_env:
+        warnings.warn(
+            "allow_real=True was passed but KINETOKEN_REAL_DATA=1 is not set. "
+            "The gate stays closed (synthetic-only). To process real data, "
+            "set KINETOKEN_REAL_DATA=1 in the environment as well.",
+            HonestGateMisconfigWarning,
+            stacklevel=2,
         )

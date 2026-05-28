@@ -2,17 +2,18 @@
   "version": "1.0",
   "product": "tokenparity",
   "repo_slug": "hinanohart/tokenparity",
-  "trigger_phrase_match": "OSS開始 (compact 後再発話)",
+  "trigger_phrase_match": "OSS開始 + post-/compact hardening (a2 hotfix)",
   "started_at": "2026-05-29T02:43:00Z",
-  "completed_at": "2026-05-29T03:50:00Z",
+  "a1_released_at": "2026-05-29T03:50:00Z",
+  "a2_hotfix_started_at": "2026-05-29T04:10:00Z",
   "lock": {
     "session_id": "main-thread-post-compact-2026-05-29",
-    "heartbeat_at": "2026-05-29T03:50:00Z",
+    "heartbeat_at": "2026-05-29T04:30:00Z",
     "pid": null,
     "released": true
   },
-  "phase": "S11-complete",
-  "completed_steps": ["S0", "S0_5", "S1", "S2", "S3", "S4", "S5", "S6", "S7", "S8", "S9", "S10", "S11"],
+  "phase": "S12-a2-hotfix-prep",
+  "completed_steps": ["S0", "S0_5", "S1", "S2", "S3", "S4", "S5", "S6", "S7", "S8", "S9", "S10", "S11", "S12_audit"],
   "checklist": {
     "S0": {
       "gh_repo_list_done": true,
@@ -39,7 +40,7 @@
     "S4": {"ci_6_matrix_green": true, "torch_isolation": true, "gpl_grep_rc1": true},
     "S5": {"tests_count": 138, "coverage_pct": 91, "vacuous_test_count": 0},
     "S6": {"readme_json_sha256_match": true, "overclaim_grep_rc1": true, "8_dup_declarations_present": true, "_dup_count_total": 13},
-    "S7": {"tagged": false, "changelog": true, "dependabot_yml": true, "citation_cff": true, "welcome_actor_guard": true},
+    "S7": {"tagged": true, "changelog": true, "dependabot_yml": true, "citation_cff": true, "welcome_actor_guard": true},
     "S8": {
       "agent_A": "ACCEPT-WITH-NITS",
       "agent_B": "ACCEPT-WITH-NITS",
@@ -47,11 +48,11 @@
       "rounds": 1,
       "blockers": 0,
       "nits_resolved_pre_release": ["LIMITATIONS_11_to_13", "branch_protection_9_contexts"],
-      "nits_deferred_to_v0.1.0a2_or_v0.1.1": ["readme_grep_negative_fixture", "bench_nan_strict_json", "verify_step_60_dead_code", "weightlock_precommit_wire", "banned_list_2phrase_diff"]
+      "nits_deferred_to_a2": ["readme_grep_negative_fixture", "bench_nan_strict_json", "verify_step_60_dead_code", "banned_list_2phrase_diff", "weightlock_precommit_wire"]
     },
     "S9": {
       "released": true,
-      "release_url": "https://github.com/hinanohart/keep-empty",
+      "release_url": "https://github.com/hinanohart/tokenparity/releases/tag/v0.1.0a1",
       "tag_name": "v0.1.0a1",
       "tag_sha": "10cb7f30aa8307fa7bfb59d7ca0258d0f15194ed",
       "tag_commit_sha": "701dce0956a54081d3dc70060a57ade8ae0a09e4",
@@ -72,6 +73,29 @@
       "v02_spec_md": true,
       "state_md_written": true,
       "memory_anchor_written": true
+    },
+    "S12_audit": {
+      "trigger": "post-/compact user prompt: 'GitHubバツだらけ' + '前の構想取りこぼし' + '洗練度チェック'",
+      "audit_X_github_state": "ACCEPT-WITH-NITS (Dependabot PR #1 #2 closed, dependabot.yml github-actions semver-major ignore added, release URL typo fixed)",
+      "audit_Y_compact_fidelity": "ACCEPT-WITH-NITS (取りこぼし=0, 全 11 項目 A-K 実装完備)",
+      "audit_Z_code_sophistication": "ACCEPT-WITH-NITS (MAJOR 2: engine.py:286 truthy-OR, verify_step.py:60 dead path; MINOR 4; NIT 3)",
+      "blockers": 0,
+      "yank_recommended": false,
+      "decision": "hotfix to v0.1.0a2"
+    },
+    "S12_a2_hotfix": {
+      "M1_engine_286_ib_truthy_or": "fixed (explicit None check)",
+      "M2_verify_step_60_dead_path": "fixed (else branch wrap)",
+      "m4_honest_gate_misconfig_warn": "added (HonestGateMisconfigWarning + 3 new tests)",
+      "banned_list_eikyu_kanpeki": "added to readme-grep.yml (永久|完璧)",
+      "bench_nan_strict_json": "fixed (allow_nan=False + recursive tolist conversion, side-effect of M1 fix surfaced legitimate IB=0.0 case)",
+      "readme_grep_negative_fixture": "added (tests/test_readme_grep_fires.py, 15 parametrize cases)",
+      "scripts_verify_step_dead_local_real_stmts": "cleanup",
+      "dependabot_github_actions_ignore_semver_major": "added",
+      "progress_json_release_url_typo": "fixed (keep-empty → tokenparity)",
+      "pyproject_version_bump": "0.1.0a1 → 0.1.0a2",
+      "tokenparity_init_version_bump": "0.1.0a1 → 0.1.0a2",
+      "changelog_a2_entry": "added"
     }
   },
   "decisions": {
@@ -82,10 +106,12 @@
     "core_libs": ["numpy", "scipy"],
     "no_gpl": true,
     "no_torch_in_core": true,
-    "version_tag": "v0.1.0a1",
+    "version_tag_current": "v0.1.0a2",
+    "version_tag_a1": "v0.1.0a1",
     "topics": ["tokenizer", "evaluation", "benchmark", "cpu-only", "multimodal"],
     "dreamcheck_decision": "separate_repo_future",
-    "claim_line_sha256": "0cd8eae081eccabcb3920400ddad8485563f7f5fb60f327e86c0cf91f867e7fd"
+    "claim_line_sha256_a2": "71434df87c853b08f04e1b532a665ccd33ab832a9eca5560ec8f133ba646ed51",
+    "claim_line_sha256_a1": "0cd8eae081eccabcb3920400ddad8485563f7f5fb60f327e86c0cf91f867e7fd"
   },
   "open_questions": {
     "OQ1_infotok_competitor": "RESOLVED: REAL_oral_ICLR2026_arxiv_2512.16975, pivot F4 declaration applied to README + LIMITATIONS",
@@ -112,11 +138,16 @@
       "phase": "S6+",
       "trigger": "Monitor B org-blind sweep found 2 more dupes (polyphonic-eval 35%, saelet 37.5%) not caught by 3-architect + 2-critic rounds",
       "pivot": "append literal differentiation to README + DUPLICATION_DECLARATIONS in commit 816c586"
+    },
+    {
+      "phase": "S12+",
+      "trigger": "Post-/compact 3-agent independent audit found 2 MAJOR bugs (engine.py:286 IB=0.0→NaN, verify_step.py:60 AttributeError) + GitHub red boxes (2 Dependabot PRs).",
+      "pivot": "hotfix to v0.1.0a2 in same session: fix MAJOR 2, harden honest-gate misconfig path, strict-JSON bench, banned-phrase sync, readme-grep negative fixture, dependabot github-actions semver-major ignore."
     }
   ],
   "wip_quarantine": [],
   "human_pause": {"paused": false, "reason": null, "since": null},
-  "status": "done",
+  "status": "a2-hotfix-prep",
   "monitor_agents": {
     "monitor_1_blueprint_fidelity": "completed (1 round, early-terminate due to agent runtime sleep limitation)",
     "monitor_2_actual_progress": "completed (6 rounds + final report, REJECT due to bookkeeping drift — superseded by S8/S10 6-critic ACCEPT)",
@@ -126,23 +157,34 @@
     "s8_critic_C_github_state": "ACCEPT-WITH-NITS",
     "s10_audit_X_clean_clone": "ACCEPT",
     "s10_audit_Y_wsl_coherence": "ACCEPT-WITH-NITS",
-    "s10_audit_Z_critical_hunt": "ACCEPT-WITH-NITS"
+    "s10_audit_Z_critical_hunt": "ACCEPT-WITH-NITS",
+    "s12_audit_X_github_state": "ACCEPT-WITH-NITS (BLOCKERS=0)",
+    "s12_audit_Y_compact_fidelity": "ACCEPT-WITH-NITS (取りこぼし=0)",
+    "s12_audit_Z_code_sophistication": "ACCEPT-WITH-NITS (MAJOR=2 → a2 hotfix)"
   },
-  "v0_1_0a2_backlog": [
-    "scripts/verify_step.py:60 dead-code path (UnboundLocal on match=None)",
-    "bench_results JSON bare NaN → use 'NaN' string in strict JSON",
-    "readme_grep.yml banned list: add 永久|完璧 (2 phrase) to match spec",
-    "tests/test_readme_grep_fires.py: negative fixture for grep dead-code regression detection",
+  "v0_1_0a2_resolved": [
+    "M1: engine.py:286 IB=0.0 truthy-OR bug → explicit None check",
+    "M2: scripts/verify_step.py:60 AttributeError on fallback → else wrap",
+    "m4: honest_gate allow_real=True + env-unset → HonestGateMisconfigWarning",
+    "bench_results JSON bare NaN → 'nan' string + allow_nan=False",
+    "readme-grep.yml banned list: + 永久|完璧",
+    "tests/test_readme_grep_fires.py: 15-case negative fixture",
+    "dependabot.yml github-actions: open-pull-requests-limit=0 + semver-major ignore",
+    "release_url typo in progress.json: keep-empty → tokenparity",
+    "scripts/verify_step.py: pre-existing dead local real_stmts cleanup"
+  ],
+  "v0_1_1_backlog": [
+    "Real adapter implementations (FoldToken / Cosmos / LeRobot live inference)",
+    "Text + audio extras",
+    "PyPI Trusted Publishers integration",
+    "Live model inference behind KINETOKEN_REAL_DATA=1 + allow_real=True gate",
     "weightlock pre-commit hook wire (currently doc reference only)",
-    "default banned list and CI banned list synchronized"
+    "SHA-pinned actions (currently tag-pinned actions/checkout@v4, setup-python@v5)",
+    "Release asset attach: bench_results JSON, source tarball"
   ],
   "v0_2_backlog": [
-    "Real adapter implementations (FoldToken / Cosmos / LeRobot live inference)",
     "Compression axis (bits-per-dimension) as Axis D",
     "Equivariance residual axis as Axis E",
-    "Text + audio extras",
-    "dreamcheck separate repo (world-model hallucination gate via dual-tokenizer disagreement)",
-    "PyPI Trusted Publishers integration",
-    "Live model inference behind KINETOKEN_REAL_DATA=1 + allow_real=True gate"
+    "dreamcheck separate repo (world-model hallucination gate via dual-tokenizer disagreement)"
   ]
 }

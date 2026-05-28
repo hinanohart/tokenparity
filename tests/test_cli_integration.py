@@ -130,7 +130,9 @@ def test_cmd_grid_version_field(tmp_output: Path, monkeypatch: pytest.MonkeyPatc
     )
     cmd_grid(args)
     data = json.loads(tmp_output.read_text())
-    assert data["version"] == "0.1.0a1"
+    from tokenparity import __version__
+
+    assert data["version"] == __version__
 
 
 def test_main_eval_end_to_end(

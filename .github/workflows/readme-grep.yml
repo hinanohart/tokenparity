@@ -18,7 +18,7 @@ jobs:
         shell: bash
         run: |
           set -e
-          banned='revolutionary|world-first|sota|state-of-the-art|完全|永続|forever|never fails'
+          banned='revolutionary|world-first|sota|state-of-the-art|完全|完璧|永続|永久|forever|never fails'
           if grep -E -i "$banned" README.md; then
             echo "FAIL: banned overclaim word in README"
             exit 1

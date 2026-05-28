@@ -65,7 +65,7 @@ The CLI refuses to compute "real" scores unless you set `KINETOKEN_REAL_DATA=1` 
 
 `bench_results/synthetic_v0.1.0a1.json` is generated deterministically (seed=42, n=10 samples per domain).
 
-SHA-256: `0cd8eae081eccabcb3920400ddad8485563f7f5fb60f327e86c0cf91f867e7fd`
+SHA-256: `71434df87c853b08f04e1b532a665ccd33ab832a9eca5560ec8f133ba646ed51` (v0.1.0a2; a1 was `0cd8eae081eccabcb3920400ddad8485563f7f5fb60f327e86c0cf91f867e7fd` — strict-JSON change in a2)
 
 To regenerate and verify: `tokenparity grid --synthetic --output bench_results/synthetic_v0.1.0a1.json`
 

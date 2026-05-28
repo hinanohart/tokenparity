@@ -48,16 +48,15 @@ def verify_s5() -> bool:
 
     # Parse "X passed" from pytest verbose output
     match = re.search(r"(\d+) passed", output)
-    if not match:
+    if match:
+        passed = int(match.group(1))
+    else:
         # Fallback: count "PASSED" lines
         passed = output.count(" PASSED")
         if passed == 0:
             print("FAIL [S5]: Could not parse pytest output for passed count.")
             return False
-    else:
-        passed = int(match.group(1))
 
-    passed = int(match.group(1))
     if passed < 60:
         print(f"FAIL [S5]: {passed} tests passed, need ≥60.")
         return False
@@ -110,9 +109,6 @@ def verify_s6() -> bool:
 
 def _is_vacuous_body(body: list[ast.stmt]) -> bool:
     """Return True if a function body consists only of pass or `assert True`."""
-    real_stmts = [s for s in body if not isinstance(s, (ast.Pass, ast.Expr))]
-
-    # Check for `assert True` only bodies
     non_trivial = False
     for stmt in body:
         if isinstance(stmt, ast.Pass):
