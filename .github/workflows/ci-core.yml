@@ -1,0 +1,36 @@
+name: CI (core, CPU)
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+        python: ["3.10", "3.11", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python ${{ matrix.python }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Install uv
+        run: pip install uv
+      - name: Install package + dev extras
+        run: |
+          uv pip install --system -e ".[dev]"
+      - name: torch isolation check (core must not import torch)
+        shell: bash
+        run: |
+          python -c "import sys; import tokenparity; assert 'torch' not in sys.modules, 'torch leaked into core import path'"
+      - name: Run unit tests
+        run: pytest -q --cov=tokenparity --cov-report=term-missing --cov-fail-under=85

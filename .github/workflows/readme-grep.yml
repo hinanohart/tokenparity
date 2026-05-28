@@ -1,0 +1,39 @@
+name: README honest-marketing grep
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  grep:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Banned overclaim words must not appear in README
+        shell: bash
+        run: |
+          set -e
+          banned='revolutionary|world-first|sota|state-of-the-art|完全|永続|forever|never fails'
+          if grep -E -i "$banned" README.md; then
+            echo "FAIL: banned overclaim word in README"
+            exit 1
+          fi
+          echo "OK: README clean"
+      - name: Required CLAIM line literal present
+        shell: bash
+        run: |
+          grep -F 'CLAIM (machine-enforced)' README.md
+          grep -F 'Synthetic + cached-token only in v0.1.0a1' README.md
+      - name: LIMITATIONS link present
+        shell: bash
+        run: |
+          grep -F 'docs/LIMITATIONS.md' README.md
+      - name: DUPLICATION_DECLARATIONS link present
+        shell: bash
+        run: |
+          grep -F 'docs/DUPLICATION_DECLARATIONS.md' README.md

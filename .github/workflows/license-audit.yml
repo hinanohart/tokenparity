@@ -1,0 +1,35 @@
+name: License Audit
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  license:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install
+        run: |
+          pip install uv pip-licenses
+          uv pip install --system -e ".[dev]"
+      - name: Assert no GPL transitive deps (NPEET absence proxy)
+        shell: bash
+        run: |
+          # rc=1 means "no GPL found" -- desired. We invert: rc=0 (found) is failure.
+          if pip-licenses --format=plain --with-license-file=false | grep -E '\bGPL\b'; then
+            echo "FAIL: GPL-licensed dependency detected in core/dev path"
+            exit 1
+          fi
+          echo "OK: no GPL deps"
+      - name: Assert no torch in core import path
+        run: |
+          python -c "import sys; import tokenparity; assert 'torch' not in sys.modules"

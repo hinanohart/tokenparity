@@ -1,0 +1,80 @@
+{
+  "version": "1.0",
+  "product": "tokenparity",
+  "repo_slug": "hinanohart/tokenparity",
+  "trigger_phrase_match": "OSS開始 (compact 後再発話)",
+  "started_at": "2026-05-29T02:43:00Z",
+  "lock": {
+    "session_id": "main-thread-post-compact-2026-05-29",
+    "heartbeat_at": "2026-05-29T02:43:00Z",
+    "pid": null,
+    "released": false
+  },
+  "phase": "S0",
+  "completed_steps": [],
+  "checklist": {
+    "S0": {
+      "gh_repo_list_done": true,
+      "websearch_infotok_done": true,
+      "websearch_rosetta_done": true,
+      "duplication_declaration_md": null,
+      "duplication_score_per_repo": {
+        "tracecal": 0.40,
+        "mlipgauge": 0.30,
+        "transduce": 0.80,
+        "gavagai": 0.70,
+        "oraclematch": 0.70,
+        "speclattice": 0.30
+      },
+      "infotok_real": true,
+      "infotok_pivot_F4_declaration_pending": true
+    },
+    "S0_5": {"repo_created": false, "branch_protected": false, "name_check_3pt": false},
+    "S1": {"kraskov_self_impl": false, "axes_analytic_tests": false},
+    "S2": {"honest_gate_test": false, "scalar_fusion_lint": false},
+    "S3": {"adapter_trinity_green": false},
+    "S4": {"ci_6_matrix_green": false, "torch_isolation": false, "gpl_grep_rc1": false},
+    "S5": {"tests_count": 0, "coverage_pct": 0, "vacuous_test_count": 0},
+    "S6": {"readme_json_sha256_match": false, "overclaim_grep_rc1": false, "6_dup_declarations_present": false},
+    "S7": {"tagged": false, "changelog": false, "dependabot_yml": false},
+    "S8": {"agent_A": null, "agent_B": null, "agent_C": null, "rounds": 0},
+    "S9": {"released": false, "topics_set": false, "delete_branch_on_merge": false},
+    "S10": {"audit_verdict": null, "clean_clone_repro": false},
+    "S11": {"v02_spec_md": false, "state_md_written": false}
+  },
+  "decisions": {
+    "name": "tokenparity",
+    "license": "Apache-2.0",
+    "axes": ["transferability", "ib", "reconstruction_per_domain"],
+    "domains": ["protein", "video", "robot"],
+    "core_libs": ["numpy", "scipy"],
+    "no_gpl": true,
+    "no_torch_in_core": true,
+    "version_tag": "v0.1.0a1",
+    "topics": ["tokenizer", "evaluation", "benchmark", "cpu-only", "multimodal"],
+    "dreamcheck_decision": "separate_repo_future",
+    "claim_line_sha256": null
+  },
+  "open_questions": {
+    "OQ1_infotok_competitor": "REAL_oral_ICLR2026_arxiv_2512.16975 → pivot F4 declaration required (IB axis = cross-domain 3-modality grid, not video tokenizer design)",
+    "OQ2_real_adapter_v0.1.1": "deferred",
+    "OQ3_dreamcheck_separation": "confirmed_separate_repo",
+    "OQ4_compression_axis_v0.2": "deferred",
+    "OQ5_equivariance_axis_v0.2": "deferred",
+    "OQ6_speclattice_dupe": "30% cross-vocabulary motif overlap, scope distinct (LLM SD vs cross-modality), LIMITATIONS note only"
+  },
+  "circuit_breaker": {
+    "max_attempts_per_step": 5,
+    "critic_max_rounds": 3,
+    "max_total_hours": 168
+  },
+  "pivot_history": [],
+  "wip_quarantine": [],
+  "human_pause": {"paused": false, "reason": null, "since": null},
+  "status": "in-progress",
+  "monitor_agents": {
+    "monitor_1_blueprint_fidelity": "pending_launch",
+    "monitor_2_actual_progress": "pending_launch",
+    "super_monitor_main_thread": "active"
+  }
+}
