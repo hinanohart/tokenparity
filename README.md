@@ -32,7 +32,7 @@ The output is a 3×3 grid (9 cells) rendered as a radar chart plus a Pareto fron
 
 ## Differentiation
 
-This repo intentionally does **not** overlap with the following sibling work. See [`docs/DUPLICATION_DECLARATIONS.md`](docs/DUPLICATION_DECLARATIONS.md) for the literal 11-entry list (6 hinanohart-internal + 5 external prior-art):
+This repo intentionally does **not** overlap with the following sibling work. See [`docs/DUPLICATION_DECLARATIONS.md`](docs/DUPLICATION_DECLARATIONS.md) for the literal 13-entry list (8 hinanohart-internal + 5 external prior-art):
 
 | Project | tokenparity vs. it |
 |---|---|
@@ -42,6 +42,8 @@ This repo intentionally does **not** overlap with the following sibling work. Se
 | [tracecal](https://github.com/hinanohart/tracecal) | physics gate on **LeRobot dataset samples**; tokenparity measures **tokenizers using cached LeRobot tokens** |
 | [mlipgauge](https://github.com/hinanohart/mlipgauge) | runtime guardrail for **MLIP MD predictions**; tokenparity's MD axis is deferred to v0.1.1 |
 | [speclattice](https://github.com/hinanohart/speclattice) | **cross-vocabulary SD acceptance-length** between two LLM tokenizers (text); tokenparity is **cross-modality**, not cross-vocab |
+| [polyphonic-eval](https://github.com/hinanohart/polyphonic-eval) | typed disagreement across **multiple LLM judges on one output**; tokenparity returns typed disagreement across **tokenizers on a 3-modality 3-axis grid** (inherits the "no scalar fusion" rule, operates one layer below) |
+| [saelet](https://github.com/hinanohart/saelet) | evaluates **SAE probes** on a single LLM family's residuals (single-modality text); tokenparity evaluates **tokenizers** across three orthogonal modalities |
 | [InfoTok](https://arxiv.org/abs/2512.16975) (ICLR 2026) | **designs** an IB-optimised video tokenizer; tokenparity **evaluates** arbitrary tokenizers on IB as one of three axes — InfoTok would be a candidate-under-test, not a competitor |
 | [StructTokenBench](https://arxiv.org/abs/2503.00089) | protein-only; tokenparity is cross-modality (protein × video × robot) |
 | [LMMS-Eval](https://github.com/EvolvingLMMs-Lab/lmms-eval) | evaluates **downstream multimodal LLM behaviour**; tokenparity scores the tokenizer artefact itself |

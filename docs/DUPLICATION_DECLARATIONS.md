@@ -28,6 +28,14 @@ R14 mandatory: literal differentiation vs every hinanohart repo with motif overl
 - speclattice: "Cross-vocabulary speculative decoding: a CPU-verifiable reference implementation and acceptance-length (tau) measurement harness."
 - **tokenparity ≠ speclattice**: speclattice measures **draft-target token alignment for SD throughput** between two LLM tokenizers (same modality, text). tokenparity measures **token-level information geometry across modalities** (protein/video/robot). Same surface keyword "cross-vocabulary", entirely different denotation.
 
+### 7. polyphonic-eval (35% motif overlap, "typed disagreement" inheritance)
+- polyphonic-eval: "Multi-judge LLM evaluation that returns typed disagreement structure instead of collapsing it to a scalar."
+- **tokenparity ≠ polyphonic-eval**: polyphonic-eval returns typed disagreement across **multiple LLM judges on a single output**; tokenparity returns typed disagreement across **multiple tokenizers on a 3-modality 3-axis grid (protein/video/robot × transferability/IB/reconstruction)**. tokenparity inherits the "no scalar fusion" rule from polyphonic-eval but operates one layer below: it scores the tokenizer artefact, not the judge ensemble verdict.
+
+### 8. saelet (35-40% motif overlap, "cross-X evaluation harness" surface collision)
+- saelet: "Cross-vendor SAE evaluation harness with MCP frontend and SSM 1st-class support (Apache-2.0)"
+- **tokenparity ≠ saelet**: saelet evaluates **Sparse Autoencoder probes** trained on a single LLM family's residual stream (single modality: text). tokenparity evaluates **tokenizers** (discrete encoder/decoder + features) across **three orthogonal modalities** (protein structure / video / robotics). Different artefact (SAE vs tokenizer), different scope (single-modality text vs cross-modality grid), different metrics (SAE reconstruction/feature-quality vs 3-axis transfer/IB/per-domain-recon).
+
 ## External prior-art
 
 ### A. InfoTok (ICLR 2026 Oral, arxiv 2512.16975)
@@ -52,6 +60,6 @@ R14 mandatory: literal differentiation vs every hinanohart repo with motif overl
 
 ## How this file is enforced
 
-- `scripts/verify_step.py S6` greps `docs/DUPLICATION_DECLARATIONS.md` for the literal string of every entry above (6 internal + 5 external = 11 entries).
+- `scripts/verify_step.py S6` greps `docs/DUPLICATION_DECLARATIONS.md` for the literal string of every entry above (8 internal + 5 external = 13 entries).
 - README §"Differentiation" links to this file with a SHA256 pinned commit.
 - CI fails closed if any declaration string is altered without bumping the SHA256 pin.
