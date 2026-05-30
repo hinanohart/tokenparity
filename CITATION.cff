@@ -6,12 +6,12 @@ abstract: >
   tokenparity measures whether discrete tokenizers from three orthogonal modalities
   (protein structure, video, robotics) score equivalently on three honest axes:
   downstream transferability, information bottleneck, and per-domain normalized
-  reconstruction.  CPU-only core, Apache-2.0, synthetic-only in v0.1.0a1.
+  reconstruction.  CPU-only core, MIT, synthetic-only in v0.1.0a1.
 authors:
   - alias: hinanohart
 version: "0.1.0a1"
 date-released: "2026-05-29"
-license: Apache-2.0
+license: MIT
 repository-code: "https://github.com/hinanohart/tokenparity"
 url: "https://github.com/hinanohart/tokenparity"
 keywords:
