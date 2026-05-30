@@ -3,7 +3,7 @@
 > **CLAIM (machine-enforced)**: A GPU-free harness that measures whether discrete tokenizers from three orthogonal modalities (protein structure / video / robotics) score equivalently on three honest axes — downstream transferability, information bottleneck, and per-domain normalized reconstruction. Not a leaderboard. Not a survey. Synthetic + cached-token only in v0.1.0a1.
 
 [![CI](https://github.com/hinanohart/tokenparity/actions/workflows/ci-core.yml/badge.svg)](https://github.com/hinanohart/tokenparity/actions/workflows/ci-core.yml)
-[![License: Apache 2.0](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](LICENSE)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![Status: pre-alpha](https://img.shields.io/badge/Status-pre--alpha-orange.svg)](#status)
 
 **Status**: pre-alpha (`v0.1.0a1`). No live model inference, no real datasets, no leaderboard. Reads pre-computed tokens or runs analytical synthetic adapters.
@@ -17,7 +17,7 @@ tokenparity is **not** a tokenizer. tokenparity *measures* tokenizers, the way a
 - **3 modalities** that share no obvious geometry — protein 3-D structure, video frames, robotics action sequences.
 - **3 honest axes** that each survive Goodhart pressure on their own:
   - **A. Downstream Transferability**: `T(d, t) = score_native(d) − score_frozen_features(d, t)`. Lower is better; cross-domain comparable only by rank.
-  - **B. Information Bottleneck**: `IB(d, t) = I(X; Z_t) − β · I(Z_t; Y)` via a self-implemented Kraskov-1 estimator (Apache-2.0, NPEET-free). `k ∈ {3, 5, 7}` sensitivity reported with CI bands.
+  - **B. Information Bottleneck**: `IB(d, t) = I(X; Z_t) − β · I(Z_t; Y)` via a self-implemented Kraskov-1 estimator (MIT, NPEET-free). `k ∈ {3, 5, 7}` sensitivity reported with CI bands.
   - **C. Per-Domain Normalized Reconstruction**: `R(d, t) = z_score_within_d(reconstruction_error(d, t))`. Cross-domain compared only by average rank.
 
 The output is a 3×3 grid (9 cells) rendered as a radar chart plus a Pareto front. **Scalar fusion is machine-banned in CI.**
@@ -84,9 +84,9 @@ See [`docs/LIMITATIONS.md`](docs/LIMITATIONS.md). Briefly:
 
 ## License
 
-Apache-2.0. See [`LICENSE`](LICENSE) and [`NOTICE`](NOTICE).
+MIT. See [`LICENSE`](LICENSE) and [`NOTICE`](NOTICE).
 
-The Kraskov-1 estimator in `src/tokenparity/_estimators/kraskov.py` is an Apache-2.0 reimplementation from the 2004 paper. **NPEET (GPL) is not a dependency.** CI enforces `pip-licenses | grep GPL` returns rc=1.
+The Kraskov-1 estimator in `src/tokenparity/_estimators/kraskov.py` is an MIT reimplementation from the 2004 paper. **NPEET (GPL) is not a dependency.** CI enforces `pip-licenses | grep GPL` returns rc=1.
 
 ## Citation
 
